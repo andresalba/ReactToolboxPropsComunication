@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import Button from './components/Button';
+import Card from './components/Card';
 
 function App() {
+
+  const [cards, setCards] = useState([{ title: 'titulo1'}])
+
+  const changeButton = (data) => {
+    //setCards([...cards, { title: data }])
+    setCards((currentCards) => [...currentCards, { title: data }])//best practice
+    console.log('title, cards: ',data, cards)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Props Comunication</h1>
+      <Button butMsg={changeButton}/>
+      {cards.map(
+        (card, index) => <Card key={index} nume={index +1} title={card.title}/>
+      )}
     </div>
   );
 }
